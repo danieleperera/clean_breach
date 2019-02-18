@@ -37,6 +37,8 @@ def get_frequencies(text: str) -> Mapping[str, int]:
         text: str -- The text data to look in.
 
     return
-        Mapping[str, int] -- A dictionary of domain as the keys, count as values.
+        Mapping[str, int] -- A dictionary of frequencies
+            key - domain
+            value - count
     """
     pass
