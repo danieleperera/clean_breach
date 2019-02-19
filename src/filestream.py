@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List, Mapping
 
+root = Path(r'C:\Users\daniele.perera\Desktop\progetti vari\clean_breach\res\media\various_collection')
 
 def get_data(fp: Path, size: int) -> str:
     """
@@ -16,7 +17,7 @@ def get_data(fp: Path, size: int) -> str:
     pass
 
 
-def get_files(filedir: Path) -> List[Path]:
+def get_files(filedir):
     """
     Return a list of files found in `filedir`.
 
@@ -26,6 +27,12 @@ def get_files(filedir: Path) -> List[Path]:
     return
         List[Path] -- A list of files found in `filedir`
     """
+    listpath=[]
+    for collection in filedir.iterdir():
+        for subdir in collection.iterdir():
+            for files in subdir.iterdir():
+                listpath.append(files)
+    return listpath            
     pass
 
 
@@ -42,3 +49,7 @@ def get_frequencies(text: str) -> Mapping[str, int]:
             value - count
     """
     pass
+
+
+test = get_files(root)
+print(test)
