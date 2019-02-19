@@ -57,7 +57,3 @@ def get_frequencies(text: str) -> Mapping[str, int]:
 # Lets do this in the __main__.py file, so everything is in one place
 
 # TODO Move this to the __main__.py file
-filepath = get_files(root)
-for line in filepath:
-    sz = os.path.getsize(line)
-get_data(filepath,sz)

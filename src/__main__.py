@@ -9,3 +9,10 @@ if __name__ == '__main__':
     # For example, we'd call the `get_files` function with
     # `filestream.get_files(path)`
     ...  # TODO Move your working logic here
+
+
+filepath = filestream.get_files(root)
+filestream.get_data(filepath)
+
+
+# moved the working logic to __main__.py as you said
