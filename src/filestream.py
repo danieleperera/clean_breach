@@ -1,9 +1,10 @@
+import os
 from pathlib import Path
 from typing import List, Mapping
 
 root = Path(r'C:\Users\daniele.perera\Desktop\progetti vari\clean_breach\res\media\various_collection')
 
-def get_data(fp: Path, size: int) -> str:
+def get_data(fp,size):
     """
     Return the data up to `size` in file.
 
@@ -31,8 +32,9 @@ def get_files(filedir):
     for collection in filedir.iterdir():
         for subdir in collection.iterdir():
             for files in subdir.iterdir():
-                listpath.append(files)
-    return listpath            
+                if files.suffix == '.txt':
+                    listpath.append(files)
+    return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]          
     pass
 
 
@@ -51,5 +53,7 @@ def get_frequencies(text: str) -> Mapping[str, int]:
     pass
 
 
-test = get_files(root)
-print(test)
+filepath = get_files(root)
+for line in filepath:
+    sz = os.path.getsize(line)
+get_data(filepath,sz)
