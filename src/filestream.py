@@ -34,7 +34,7 @@ def get_files(filedir):
             for files in subdir.iterdir():
                 if files.suffix == '.txt':
                     listpath.append(files)
-    return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]          
+    return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]
     pass
 
 
@@ -53,6 +53,10 @@ def get_frequencies(text: str) -> Mapping[str, int]:
     pass
 
 
+# It starts to get messy to put your "working" logic at the bottom of your file
+# Lets do this in the __main__.py file, so everything is in one place
+
+# TODO Move this to the __main__.py file
 filepath = get_files(root)
 for line in filepath:
     sz = os.path.getsize(line)
