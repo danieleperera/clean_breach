@@ -5,5 +5,4 @@ from pathlib import Path
 SRC = Path(__file__).parent
 ROOT = SRC.parent
 RES = ROOT / 'res'
-
-# TODO create a path variable for the media folder in res
+MEDIA = RES / 'media'

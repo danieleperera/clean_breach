@@ -2,13 +2,6 @@ import os
 from pathlib import Path
 from typing import List, Mapping
 
-# We want to make sure our paths are independent of the system
-# it runs on. There a lot of different ways to do this, lets use
-# the __init__.py file to define out paths.
-
-# TODO Delete this and implement it in __init__.py
-root = Path(r'C:\Users\daniele.perera\Desktop\progetti vari\clean_breach\res\media\various_collection')
-
 
 def get_data(fp,size):
     """
