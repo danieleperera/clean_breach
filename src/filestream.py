@@ -50,9 +50,3 @@ def get_frequencies(text: str) -> Mapping[str, int]:
             value - count
     """
     pass
-
-
-filepath = get_files(root)
-for line in filepath:
-    sz = os.path.getsize(line)
-get_data(filepath,sz)
