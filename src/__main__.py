@@ -1,5 +1,6 @@
 from . import filestream
+from . import MEDIA
 
-
-filepath = filestream.get_files(root)
-filestream.get_data(filepath)
+files = filestream.get_files(MEDIA)
+for fp in files:
+    filestream.get_data(fp)
