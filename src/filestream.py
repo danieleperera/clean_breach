@@ -51,9 +51,3 @@ def get_frequencies(text: str) -> Mapping[str, int]:
             value - count
     """
     pass
-
-
-# It starts to get messy to put your "working" logic at the bottom of your file
-# Lets do this in the __main__.py file, so everything is in one place
-
-# TODO Move this to the __main__.py file
