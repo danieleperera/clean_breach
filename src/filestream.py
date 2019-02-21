@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from typing import List, Mapping
 
-root = Path(r'C:\Users\daniele.perera\Desktop\progetti vari\clean_breach\res\media\various_collection')
 
 def get_data(fp,size):
     """
@@ -34,7 +33,7 @@ def get_files(filedir):
             for files in subdir.iterdir():
                 if files.suffix == '.txt':
                     listpath.append(files)
-    return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]          
+    return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]
     pass
 
 
