@@ -72,6 +72,6 @@ def get_frequencies(data):
     for domain in match_pattern:
         count = frequency.get(domain, 0)
         frequency[domain] = count + 1
-    print(frequency)
+    
     return frequency
     pass

@@ -11,7 +11,10 @@ files = filestream.get_files(MEDIA)
 
 for fp in files:
     text = filestream.get_data(fp,args.size)
-    filestream.get_frequencies(text)
+    result = filestream.get_frequencies(text)
+
+print(result)
+
 
 
 
