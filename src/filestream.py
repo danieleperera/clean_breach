@@ -68,7 +68,7 @@ def get_frequencies(data):
     """
     frequency = {}
     string = ''.join(data)
-    match_pattern = re.findall(r'@[\w\.-]+', string)
+    match_pattern = re.findall(r'[-\+\.\w]+@[\w\.-]+\.\w+', string) #[-\+\.\w]+@[\w\.-]+\.\w+ for entire email ::: only domain @[\w\.-]+
     for domain in match_pattern:
         count = frequency.get(domain, 0)
         frequency[domain] = count + 1
