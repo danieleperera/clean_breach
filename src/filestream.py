@@ -30,7 +30,7 @@ def get_files(filedir):
 
     return
         List[Path] -- A list of files found in `filedir`
-    """
+    
     listpath=[]
     for collection in filedir.iterdir():
         #print(collection)
@@ -53,6 +53,8 @@ def get_files(filedir):
                         continue  # For safety
                     
     return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]
+    """
+    return filedir.rglob('*.txt')
     pass
 def get_frequencies(data):
     """
