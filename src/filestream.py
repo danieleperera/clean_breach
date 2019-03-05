@@ -2,6 +2,18 @@ from pathlib import Path
 from typing import List, Mapping
 import re
 
+class mail_database:
+    num_of_mails = 0
+    
+    def __init__(self,email):
+        self.email = email
+        self.username = email[:email.index("@")]
+        #print(self.username)
+        print(self.email)
+        
+        # mail_database.num_of_mails += 1
+        # #print(mail_database.num_of_mails)
+
 def get_data(fp,size):
     """
     Return the data up to `size` in file.
@@ -69,11 +81,8 @@ def get_frequencies(data):
             value - count
     """
     frequency = {}
+
     string = ''.join(data)
     match_pattern = re.findall(r'[-\+\.\w]+@[\w\.-]+\.\w+', string) #[-\+\.\w]+@[\w\.-]+\.\w+ for entire email ::: only domain @[\w\.-]+
-    for domain in match_pattern:
-        count = frequency.get(domain, 0)
-        frequency[domain] = count + 1
-    
-    return frequency
+    return match_pattern
     pass
