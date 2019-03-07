@@ -1,6 +1,36 @@
 from pathlib import Path
 from typing import List, Mapping
 import re
+import sqlite3
+
+
+
+class mail_database:
+    num_of_mails = 0
+    
+
+    conn = sqlite3.connect('database.db')
+
+    c = conn.cursor()
+    
+    c.execute("""CREATE TABLE IF NOT EXISTS breach (
+            email text UNIQUE,
+            username text,
+            domain text
+            )""")
+    
+    def __init__(self,email):
+        self.email = email
+        self.username = email[:email.index("@")]
+        self.domain = email[email.index("@")+1:]
+        #self.validate = validate_email(self.email,check_mx=True)
+        #print(self.username)
+        #print(self.email)
+        
+        # mail_database.num_of_mails += 1
+        # #print(mail_database.num_of_mails)
+    def __repr__(self):
+        return "({}, {}, {})".format(self.email, self.username, self.domain)
 
 def get_data(fp,size):
     """
@@ -14,17 +44,11 @@ def get_data(fp,size):
         str -- The file data up to size.
     """
     size_to_read = size
-    with io.open(str(fp), mode="r", encoding='utf8', errors='replace') as content:
-        f_content = content.read(size_to_read)
-
-        while len(f_content) > 0:
-            string = (f_content, end='')
-            return string
-            f_content = content.read(size_to_read)
-
-
-
-    pass
+    with open(str(fp), mode="r", encoding='utf8', errors='replace') as content:
+        data = content.read(size_to_read)
+        while data:
+            yield data
+            data = content.read(size_to_read)
 
 
 def get_files(filedir):
@@ -36,18 +60,33 @@ def get_files(filedir):
 
     return
         List[Path] -- A list of files found in `filedir`
-    """
+    
     listpath=[]
     for collection in filedir.iterdir():
+        #print(collection)
+        if not collection.is_dir():
+            continue  # For safety
         for subdir in collection.iterdir():
+            if not collection.is_dir():
+                continue  # For safety
+            #print(subdir)
             for files in subdir.iterdir():
-                if files.suffix == '.txt':
-                    listpath.append(files)
+                #print(files)
+                if not collection.is_dir():
+                    continue  # For safety
+                
+                for subfiles in files.iterdir():
+                    if subfiles.suffix == '.txt':
+                        #print(subfiles)
+                        listpath.append(subfiles)
+                    if not collection.is_dir():
+                        continue  # For safety
+                    
     return listpath  # the list has this format [WindowsPath('C:/../../.txt'), WindowsPath(...)]
+    """
+    return filedir.rglob('*.txt')
     pass
-
-
-def get_frequencies(text):
+def get_frequencies(data):
     """
     Return a dictionary of the `domain: count` found in text.
 
@@ -60,9 +99,8 @@ def get_frequencies(text):
             value - count
     """
     frequency = {}
-    match_pattern = re.findall(r'@[\w\.-]+', text())
-                for domain in match_pattern:
-                    count = frequency.get(domain, 0)
-                    frequency[domain] = count + 1
-    return frequency
+
+    string = ''.join(data)
+    match_pattern = re.findall(r'[-\+\.\w]+@[\w\.-]+\.\w+', string) #[-\+\.\w]+@[\w\.-]+\.\w+ for entire email ::: only domain @[\w\.-]+
+    return match_pattern
     pass

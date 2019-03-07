@@ -6,3 +6,5 @@ SRC = Path(__file__).parent
 ROOT = SRC.parent
 RES = ROOT / 'res'
 MEDIA = RES / 'media'
+
+print(MEDIA)
