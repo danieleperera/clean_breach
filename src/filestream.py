@@ -1,18 +1,36 @@
 from pathlib import Path
 from typing import List, Mapping
 import re
+from validate_email import validate_email
+
 
 class mail_database:
     num_of_mails = 0
+    import sqlite3
+
+    conn = sqlite3.connect('database.db')
+
+    c = conn.cursor()
+    
+    c.execute("""CREATE TABLE IF NOT EXISTS breach (
+            email text UNIQUE,
+            username text,
+            domain text,
+            validate text
+            )""")
     
     def __init__(self,email):
         self.email = email
         self.username = email[:email.index("@")]
+        self.domain = email[email.index("@")+1:]
+        self.validate = validate_email(self.email,check_mx=True)
         #print(self.username)
-        print(self.email)
+        #print(self.email)
         
         # mail_database.num_of_mails += 1
         # #print(mail_database.num_of_mails)
+    def __repr__(self):
+        return "({}, {}, {}, {})".format(self.email, self.username, self.domain, self.validate)
 
 def get_data(fp,size):
     """
