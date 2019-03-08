@@ -1,6 +1,10 @@
 from . import filestream
 from . import MEDIA
 import argparse  # sys https://www.pythonforbeginners.com/system/python-sys-argv
+from . import dbhandler
+
+
+db = dbhandler.DbHandler()
 
 
 parser = argparse.ArgumentParser(description='Breach data cleanner')
@@ -9,12 +13,13 @@ args = parser.parse_args()
 
 files = filestream.get_files(MEDIA)
 
-
+db.setup()
 
 for fp in files:
     text = filestream.get_data(fp, args.size)
     results = filestream.get_frequencies(text)
-    for result in results:
-            with filestream.mail_database.conn:
-                    mail = filestream.mail_database(result)
-                    filestream.mail_database.c.execute("INSERT OR IGNORE INTO breach VALUES (:email, :username, :domain, :validate)", {'email': mail.email, 'username': mail.username, 'domain': mail.domain, 'validate': mail.validate})
+    for email in results:
+            username = email[:email.index("@")]
+            domain = email[email.index("@")+1:]
+            country = domain[domain.index("."):]
+            db.add_item(email, username, domain, country)
