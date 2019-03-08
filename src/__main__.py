@@ -2,6 +2,9 @@ from . import filestream
 from . import MEDIA
 import argparse  # sys https://www.pythonforbeginners.com/system/python-sys-argv
 from . import dbhandler
+import cProfile
+
+
 
 
 db = dbhandler.DbHandler()
@@ -18,8 +21,6 @@ db.setup()
 for fp in files:
     text = filestream.get_data(fp, args.size)
     results = filestream.get_frequencies(text)
-    for email in results:
-            username = email[:email.index("@")]
-            domain = email[email.index("@")+1:]
-            country = domain[domain.index("."):]
-            db.add_item(email, username, domain, country)
+    db.add_items(results)
+
+
