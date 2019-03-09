@@ -7,4 +7,4 @@ ROOT = SRC.parent
 RES = ROOT / 'res'
 MEDIA = RES / 'media'
 
-print(MEDIA)
+#print(MEDIA)
