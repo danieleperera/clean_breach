@@ -3,7 +3,7 @@ import sqlite3
 
 class DbHandler:
     
-    def __init__(self, dbfile="database.db"):
+    def __init__(self, dbfile="database_mah.db"):
         self.dbfile = dbfile
         self.connection = sqlite3.connect(dbfile)
         self.cur = self.connection.cursor()
@@ -26,9 +26,21 @@ class DbHandler:
         statement = "INSERT OR IGNORE INTO breach (email, username, domain, country) VALUES (?, ?, ?, ?)"
         #print(email)
         username = email[:email.index("@")]
-        domain = email[email.index("@")+1:]
+        domain = email[email.index("@"):]
         country = domain[domain.index("."):]
         args = (email, username, domain, country)
         self.cur.execute(statement, args)
+'''
+    def add_item1(self, email):
+        username = email[:email.index("@")]
+        domain = email[email.index("@"):]
+        country = domain[domain.index("."):]
+        self.cache.append((email, username, domain, country))
 
+    def store_items(self):
+        statement = "INSERT OR IGNORE INTO breach (email, username, domain, country) VALUES (?, ?, ?, ?)"
+        self.connection.executemany(statement, self.cache)
+        self.connection.commit()
+        self.cache = []
+'''
 
