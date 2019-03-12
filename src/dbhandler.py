@@ -9,7 +9,7 @@ class DbHandler:
         self.cur = self.connection.cursor()
     
     def setup(self):
-        statement = "CREATE TABLE IF NOT EXISTS breach (email text UNIQUE,username text,domain text,country text)"
+        statement = "CREATE TABLE IF NOT EXISTS breach (email text PRIMARY KEY, username text,domain text,country text)"
         self.connection.execute(statement)
         self.connection.commit()
     
@@ -24,7 +24,7 @@ class DbHandler:
 
     def _add_item(self, email):
         statement = "INSERT OR IGNORE INTO breach (email, username, domain, country) VALUES (?, ?, ?, ?)"
-        #print(email)
+        # print(email)
         username = email[:email.index("@")]
         domain = email[email.index("@"):]
         country = domain[domain.index("."):]

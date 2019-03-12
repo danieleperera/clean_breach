@@ -6,7 +6,7 @@ from . import dbhandler
 '''
 test1 Measure-Command { pipenv run start -s 102400000000 } - OverflowError: cannot fit 'int' into an index-sized integer
 test2 Measure-Command { pipenv run start -s 1024000000 } -     data = content.read(size_to_read) MemoryError
-test2 Measure-Command { pipenv run start -s 102400000 } - max thinkpad usa 250 MB di memoria 50 MB/s 25% del cpu - il risultato è maggiore
+test2 pc scuola thinkpad Measure-Command { pipenv run start -s 102400000 } - max thinkpad usa 250 MB di memoria 50 MB/s 25% del cpu - il risultato è maggiore
 
 Days              : 0
 Hours             : 0
@@ -19,6 +19,19 @@ TotalHours        : 0,392726904305556
 TotalMinutes      : 23,5636142583333
 TotalSeconds      : 1413,8168555
 TotalMilliseconds : 1413816,8555
+
+test 3 work pc Measure-Command { pipenv run start -s 1024000 } database size = 1.749.136 KB
+Days              : 0
+Hours             : 6
+Minutes           : 28
+Seconds           : 54
+Milliseconds      : 462
+Ticks             : 233344624091
+TotalDays         : 0,27007479640162
+TotalHours        : 6,48179511363889
+TotalMinutes      : 388,907706818333
+TotalSeconds      : 23334,4624091
+TotalMilliseconds : 23334462,4091
 
 '''
 
