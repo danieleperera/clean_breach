@@ -16,7 +16,7 @@ def get_files(filedir):
     pass
 
 
-def get_frequencies(data):
+def get_email(data):
     string = ''.join(data)
     match_pattern = re.findall(r'[-\+\.\w]+@[\w\.-]+\.\w+', string)  # [-\+\.\w]+@[\w\.-]+\.\w+ for entire email ::: only domain @[\w\.-]+
     return match_pattern
