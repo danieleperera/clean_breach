@@ -9,8 +9,8 @@ class DbHandler:
         self.cur = self.connection.cursor()
         self.connection.execute('pragma journal_mode=MEMORY')
         self.connection.execute('pragma SYNCHRONOUS=1')
-        self.connection.execute('pragma PAGE_SIZE=4096')
-        self.connection.execute('pragma cache_size = 8192')
+        self.connection.execute('pragma PAGE_SIZE=8096')
+        self.connection.execute('pragma cache_size = 10192')
         self.connection.execute('pragma auto_vacuum=1') 
         self.cache = []
    
