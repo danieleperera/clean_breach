@@ -2,10 +2,6 @@ from . import filestream
 from . import MEDIA
 import argparse  # sys https://www.pythonforbeginners.com/system/python-sys-argv
 from . import dbhandler
-import cProfile
-
-
-
 
 db = dbhandler.DbHandler()
 
@@ -21,6 +17,7 @@ db.setup()
 for fp in files:
     text = filestream.get_data(fp, args.size)
     results = filestream.get_frequencies(text)
-    db.add_items(results)
-
-
+    for email in results:
+        db.add_item(email)
+    db.store_items()
+    
