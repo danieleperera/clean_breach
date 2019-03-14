@@ -10,8 +10,6 @@ flake8-docstrings = "*"
 [packages]
 pytest = "*"
 argparse = "*"
-validate-email = "*"
-py3dns = "*"
 tqdm = "*"
 
 [requires]
