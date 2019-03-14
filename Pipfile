@@ -10,6 +10,7 @@ flake8-docstrings = "*"
 [packages]
 pytest = "*"
 argparse = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.7"

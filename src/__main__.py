@@ -6,7 +6,7 @@ from . import dbhandler
 '''
 test1 Measure-Command { pipenv run start -s 102400000000 } - OverflowError: cannot fit 'int' into an index-sized integer
 test2 Measure-Command { pipenv run start -s 1024000000 } -     data = content.read(size_to_read) MemoryError
-test2 pc scuola thinkpad Measure-Command { pipenv run start -s 102400000 } - max thinkpad usa 250 MB di memoria 50 MB/s 25% del cpu - il risultato è maggiore
+test2 pc scuola thinkpad Measure-Command { pipenv run start -s 200000000 } - max thinkpad usa 250 MB di memoria 50 MB/s 25% del cpu - il risultato è maggiore
 
 Days              : 0
 Hours             : 0
@@ -40,18 +40,19 @@ TotalMilliseconds : 23334462,4091
 db = dbhandler.DbHandler()
 
 
-parser = argparse.ArgumentParser(description='Breach data cleanner')
+parser = argparse.ArgumentParser(description='data cleanner')
 parser.add_argument('-s', '--size', type=int, help='Please insert the size of the file that you want to read')
 args = parser.parse_args()
 
 files = filestream.get_files(MEDIA)
-
+print(type(files))
 db.setup()
 
-
-for fp in files:
+for fp in tqdm(list(files), ascii=True):
     text = filestream.get_data(fp, args.size)
-    results = filestream.get_frequencies(text)
-    db.add_items(results)
-
-
+    results = filestream.get_email(text)
+    for email in tqdm(list(results), ascii=True):
+        db.add_item(email)
+    db.store_items()
+    os.unlink(fp)  # to delete the files after reading them
+    #print("Deleting: {}".format(fp))
