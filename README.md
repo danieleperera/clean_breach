@@ -12,7 +12,7 @@ BD cleaner is build as a internship project in order to create a clean database 
   - Possibility to make queries from web app
   - Backend magic is done by using regex in Python
   
-![finale](https://user-images.githubusercontent.com/45230107/54538928-75fd4c80-4995-11e9-8956-712175ca1533.gif)
+![finale2](https://user-images.githubusercontent.com/45230107/54539022-ac3acc00-4995-11e9-8c31-090b48f1b250.gif)
 
 ## ToDo
   - improve database creation by optimizing occupied space and timing
