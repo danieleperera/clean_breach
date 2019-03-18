@@ -6,7 +6,7 @@
 
 
 
-BD cleaner is build as a internship project in order to create a clean database of breached data found in web.
+BD cleaner is build as a internship project in order to create a clean database of breached data found in web. You must provide the breached data.
 
   - Dashboard of analyzed data
   - Possibility to make queries from web app
