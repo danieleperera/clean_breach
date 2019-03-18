@@ -2,13 +2,13 @@
 
 [![N|Solid](https://camo.githubusercontent.com/5392ad6fb7875a2520001270f08309896b6cb25d/687474703a2f2f466f7254686542616467652e636f6d2f696d616765732f6261646765732f6d6164652d776974682d707974686f6e2e737667)](https://www.python.org/)
 
-[![Build Status](https://img.shields.io/badge/Version-v0.1-brightgreen.svg)](https://shields.io/) [![Build Status](https://img.shields.io/badge/Status-Building-red.svg)](https://shields.io/) [![Build Status](https://img.shields.io/badge/Platform-windows%2Flinux-blue.svg)](hhttps://shields.io/) [![Build Status](https://img.shields.io/badge/Database-SQLite3-lightgrey.svg)](hhttps://shields.io/)
+[![Build Status](https://img.shields.io/badge/Version-v0.0.1-brightgreen.svg)](https://shields.io/) [![Build Status](https://img.shields.io/badge/Status-Building-red.svg)](https://shields.io/) [![Build Status](https://img.shields.io/badge/Platform-windows%2Flinux-blue.svg)](hhttps://shields.io/) [![Build Status](https://img.shields.io/badge/Database-SQLite3-lightgrey.svg)](hhttps://shields.io/)
 
 
 
 BD cleaner is build as a internship project in order to create a clean database of breached data found in web.
 
-  - Dashboard of analized data
+  - Dashboard of analyzed data
   - Possibility to make queries from web app
   - Backend magic is done by using regex in Python
 
@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Additional details are coming soon.
 
 ```
 Give examples
@@ -26,29 +26,29 @@ Give examples
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Additional details are coming soon.
 
-Say what the step will be
+Additional details are coming soon.
 
 ```
 Give the example
 ```
 
-And repeat
+Additional details are coming soon.
 
 ```
 until finished
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Additional details are coming soon.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Additional details are coming soon.
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+Additional details are coming soon.
 
 ```
 Give an example
@@ -56,7 +56,7 @@ Give an example
 
 ### And coding style tests
 
-Explain what these tests test and why
+Additional details are coming soon.
 
 ```
 Give an example
@@ -64,7 +64,7 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+This project can be deployed on Cloud too. More Additional details are coming soon.
 
 ## Built With
 
@@ -78,11 +78,11 @@ Please read [CONTRIBUTING.md](https://gist.github.com/) for details on our code 
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/danieleperera/clean_breach/tags). 
 
 ## Author
 
-* **Daniele Perera** - [PurpleBooth](https://github.com/danieleperera)
+* **Daniele Perera** - [Mr. Px0r](https://github.com/danieleperera)
 
 See also the list of [contributors](https://github.com/danieleperera/clean_breach/graphs/contributors) who participated in this project.
 
@@ -92,9 +92,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Additional details are coming soon.
+* Additional details are coming soon.
+* Additional details are coming soon.
 
 
 
