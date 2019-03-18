@@ -3,6 +3,10 @@ from . import MEDIA
 import argparse  # sys https://www.pythonforbeginners.com/system/python-sys-argv
 from . import dbhandler
 from tqdm import tqdm
+from tqdm._utils import _term_move_up
+from termcolor import colored
+import os
+
 '''
 test1 Measure-Command { pipenv run start -s 102400000000 } - OverflowError: cannot fit 'int' into an index-sized integer
 test2 Measure-Command { pipenv run start -s 1024000000 } -     data = content.read(size_to_read) MemoryError
@@ -44,14 +48,28 @@ parser.add_argument('-s', '--size', type=int, help='Please insert the size of th
 args = parser.parse_args()
 
 files = filestream.get_files(MEDIA)
-#print(type(files))
+# print(type(files))
 db.setup()
 
-for fp in tqdm(list(files), ascii=True):
+# start going into files
+firstprogressbar = tqdm(list(files), ascii=True, unit="files")
+border = "="*100
+clear_border = _term_move_up() + "\r" + " "*len(border) + "\r"
+excl = colored("[!] ", "yellow")
+
+for fp in firstprogressbar:
     text = filestream.get_data(fp, args.size)
     results = filestream.get_email(text)
-    for email in tqdm(list(results), ascii=True):
+    secondprogressbar = tqdm(list(results), ascii=False, unit="lines")
+    # start parsing data and saving to db
+    for email in secondprogressbar:
         db.add_item(email)
+        _term_move_up()
+        secondprogressbar.update()
     db.store_items()
-    # os.unlink(fp)   to delete the files after reading them
-    # print("Deleting: {}".format(fp))
+    
+    firstprogressbar.write(clear_border + excl+"%s saved to database" % str(os.path.basename(fp)))
+    firstprogressbar.write(border)
+    firstprogressbar.update()
+    
+    

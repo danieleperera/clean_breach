@@ -11,6 +11,7 @@ flake8-docstrings = "*"
 pytest = "*"
 argparse = "*"
 tqdm = "*"
+termcolor = "*"
 
 [requires]
 python_version = "3.7"
