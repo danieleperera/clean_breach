@@ -2,7 +2,7 @@ from . import filestream
 from . import MEDIA
 import argparse  # sys https://www.pythonforbeginners.com/system/python-sys-argv
 from . import dbhandler
-
+from tqdm import tqdm
 '''
 test1 Measure-Command { pipenv run start -s 102400000000 } - OverflowError: cannot fit 'int' into an index-sized integer
 test2 Measure-Command { pipenv run start -s 1024000000 } -     data = content.read(size_to_read) MemoryError
@@ -36,7 +36,6 @@ TotalMilliseconds : 23334462,4091
 '''
 
 
-
 db = dbhandler.DbHandler()
 
 
@@ -45,7 +44,7 @@ parser.add_argument('-s', '--size', type=int, help='Please insert the size of th
 args = parser.parse_args()
 
 files = filestream.get_files(MEDIA)
-print(type(files))
+#print(type(files))
 db.setup()
 
 for fp in tqdm(list(files), ascii=True):
@@ -54,5 +53,5 @@ for fp in tqdm(list(files), ascii=True):
     for email in tqdm(list(results), ascii=True):
         db.add_item(email)
     db.store_items()
-    os.unlink(fp)  # to delete the files after reading them
-    #print("Deleting: {}".format(fp))
+    # os.unlink(fp)   to delete the files after reading them
+    # print("Deleting: {}".format(fp))
