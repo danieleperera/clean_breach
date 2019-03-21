@@ -93,21 +93,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 See also the list of [contributors](https://github.com/danieleperera/clean_breach/graphs/contributors) who participated in this project.
 
-## Acknowledgments
-
-* Additional details are coming soon.
-* Additional details are coming soon.
-* Additional details are coming soon.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
 
-* Additional details are coming soon.
-* Additional details are coming soon.
-* Additional details are coming soon.
 
 
 
