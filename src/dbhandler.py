@@ -3,7 +3,7 @@ import sqlite3
 
 class DbHandler:
 
-    def __init__(self, dbfile="database210.db"):
+    def __init__(self, dbfile="database.db"):
         self.dbfile = dbfile
         self.connection = sqlite3.connect(dbfile)
         self.cur = self.connection.cursor()
@@ -15,35 +15,35 @@ class DbHandler:
         self.cur.execute('PRAGMA foreign_keys = ON')
         self.cache = []
         self.cache2 = []
-        
-#delete this after 
 
-        self.get_id_username = 1
 
     def setup(self):
-        statement = "CREATE TABLE IF NOT EXISTS usernametable (username text , id INTEGER NOT NULL PRIMARY KEY )"
-        statement2 = "CREATE TABLE IF NOT EXISTS domaintable (domain text PRIMARY KEY, id_domain INTEGER NOT NULL, FOREIGN KEY(id_domain) REFERENCES usernametable(id))" #, FOREIGN KEY(id_domain) REFERENCES usernametable(id)
+        statement = "CREATE TABLE IF NOT EXISTS usernametable (id INTEGER PRIMARY KEY, username text NOT NULL)"
+        statement2 = "CREATE TABLE IF NOT EXISTS domaintable (id_domain INTEGER PRIMARY KEY, domain TEXT , CONSTRAINT constraint_name UNIQUE (domain), CONSTRAINT fk_username FOREIGN KEY(id_domain) REFERENCES usernametable(id))"  #, FOREIGN KEY(id_domain) REFERENCES usernametable(_rowid_) id_domain INTEGER NOT NULL,
         self.cur.execute(statement)
         self.cur.execute(statement2)
         self.connection.commit()
 
     def add_item(self, email):
         username = email[:email.index("@")]
-        #domain = email[email.index("@")+1:]
+        domain = email[email.index("@")+1:]
         #country = domain[domain.index("."):]
-        self.check_domain_table(email)
-        self.cache.append((username,)) # must keep the comma because it's a tuple
+        
+        self.cache2.append((domain,))
+        self.cache.append((username,))  # must keep the comma because it's a tuple
 
     def store_items(self):
         statement = "INSERT OR IGNORE INTO usernametable (username) VALUES (?)"
-        statement_add_domain = "INSERT OR IGNORE INTO domaintable (domain, id_domain) VALUES (?, ?)"
+        statement_add_domain = "INSERT OR IGNORE INTO domaintable (domain) VALUES (?)"
+        
         self.connection.executemany(statement, self.cache)
-        #self.connection.commit()
         self.connection.executemany(statement_add_domain, self.cache2)
+        #self.connection.commit()
+        
         self.connection.commit()
         self.cache = []
         self.cache2 = []
-
+"""
     def check_domain_table(self, email):
         username = email[:email.index("@")]
         domain = email[email.index("@")+1:]
@@ -64,7 +64,7 @@ class DbHandler:
             print('i have to point the username to the correct domain')
 
         
-        """
+        
 
                     print('There is no domain named' + domain + ' in the database')
             statement_add_domain = "INSERT INTO domaintable (domain, number) VALUES (?, ?)"

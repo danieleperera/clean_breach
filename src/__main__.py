@@ -22,5 +22,5 @@ for fp in tqdm(list(files), ascii=True):
     for email in tqdm(list(results), ascii=True):
         db.add_item(email)
     db.store_items()
-    os.unlink(fp)  # to delete the files after reading them
+    #os.unlink(fp)  to delete the files after reading them
     #print("Deleting: {}".format(fp))
