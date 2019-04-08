@@ -7,6 +7,8 @@ from tqdm import tqdm
 
 db = dbhandler.DbHandler()
 
+#SELECT id,username,domaintable.domain from usernametable left join domaintable on usernametable.domain_id = domaintable.domain_id
+
 
 parser = argparse.ArgumentParser(description='data cleanner')
 parser.add_argument('-s', '--size', type=int, help='Please insert the size of the file that you want to read')

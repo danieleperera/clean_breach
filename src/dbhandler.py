@@ -13,98 +13,71 @@ class DbHandler:
         self.connection.execute('pragma cache_size = 8192')
         self.connection.execute('pragma auto_vacuum=1')
         self.cur.execute('PRAGMA foreign_keys = ON')
-        self.cache = []
-        self.cache2 = []
-
-
+        self.username_cache = []
+        self.domain_cache = []
+        
+        # Local cache of domaintable. We need it for speed improvement of inserting into domaintable
+        self.database_domain_cache = {}
+        # This one indicates next domain_id in insert
+        self.next_domain_id = 1
+ 
     def setup(self):
-        statement = "CREATE TABLE IF NOT EXISTS usernametable (id INTEGER PRIMARY KEY, username text NOT NULL)"
-        statement2 = "CREATE TABLE IF NOT EXISTS domaintable (id_domain INTEGER PRIMARY KEY, domain TEXT , CONSTRAINT constraint_name UNIQUE (domain), CONSTRAINT fk_username FOREIGN KEY(id_domain) REFERENCES usernametable(id))"  #, FOREIGN KEY(id_domain) REFERENCES usernametable(_rowid_) id_domain INTEGER NOT NULL,
+        statement = """
+            CREATE TABLE IF NOT EXISTS
+                domaintable
+                (
+                    domain_id INTEGER PRIMARY KEY,
+                    domain TEXT UNIQUE
+                )
+        """
         self.cur.execute(statement)
-        self.cur.execute(statement2)
+        
+        statement = """
+            CREATE TABLE IF NOT EXISTS
+                usernametable
+                (
+                    id INTEGER PRIMARY KEY,
+                    username text NOT NULL,
+                    domain_id INTEGER,
+                    FOREIGN KEY(domain_id) REFERENCES domaintable(domain_id)
+                )
+        """
+        self.cur.execute(statement)
+
         self.connection.commit()
 
+        # Load domains from database into local cache, domain name is a key and domain_id is a value
+        for domain_id, domain in self.connection.execute('SELECT * FROM domaintable').fetchall():
+            self.database_domain_cache[domain] = domain_id
+            if domain_id >= self.next_domain_id:
+                self.next_domain_id = domain_id + 1
+ 
     def add_item(self, email):
         username = email[:email.index("@")]
         domain = email[email.index("@")+1:]
         #country = domain[domain.index("."):]
-        
-        self.cache2.append((domain,))
-        self.cache.append((username,))  # must keep the comma because it's a tuple
-
+       
+        # We have to check if domain exists in local cache first, we loaded all existing domains at script start (code above)
+        # If it does not exist, create cache entry and prepare for database insert
+        if domain not in self.database_domain_cache:
+            # Add new domain into database domain cache with next id
+            self.database_domain_cache[domain] = self.next_domain_id
+            # Add to sql cache, to be inserted in store_items()
+            # We want to insert domain name with given id we prepared for it
+            self.domain_cache.append((self.next_domain_id, domain))
+            # Increment next id
+            self.next_domain_id += 1
+    
+        # Additionally to username we want to insert domain id here as well
+        self.username_cache.append((username, self.database_domain_cache[domain]))
+ 
     def store_items(self):
-        statement = "INSERT OR IGNORE INTO usernametable (username) VALUES (?)"
-        statement_add_domain = "INSERT OR IGNORE INTO domaintable (domain) VALUES (?)"
+        statement = "INSERT OR IGNORE INTO domaintable (domain_id, domain) VALUES (?,?)"
+        self.connection.executemany(statement, self.domain_cache)
         
-        self.connection.executemany(statement, self.cache)
-        self.connection.executemany(statement_add_domain, self.cache2)
-        #self.connection.commit()
-        
+        statement = "INSERT OR IGNORE INTO usernametable (username, domain_id) VALUES (?,?)"
+        self.connection.executemany(statement, self.username_cache)
+       
         self.connection.commit()
-        self.cache = []
-        self.cache2 = []
-"""
-    def check_domain_table(self, email):
-        username = email[:email.index("@")]
-        domain = email[email.index("@")+1:]
-        
-        i = 1
-        print(username +" id ====  "+str(self.get_id_username))
-        self.get_id_username += i
-        i +=1
-
-        statement_check_domain = "SELECT EXISTS(SELECT 1 FROM domaintable WHERE domain=? LIMIT 1)"    
-        self.cur.execute(statement_check_domain, (domain,))
-        
-        data=self.cur.fetchone()[0]
-        if data==0:
-            print('There is no domain named ' + domain + ' in the database')
-            self.cache2.append((domain, int(self.get_id_username)-1))
-        else:
-            print('i have to point the username to the correct domain')
-
-        
-        
-
-                    print('There is no domain named' + domain + ' in the database')
-            statement_add_domain = "INSERT INTO domaintable (domain, number) VALUES (?, ?)"
-            self.cur.execute(statement_add_domain, (domain, int(self.get_id_username)))
-            self.connection.commit()
-
-
-
-        if self.cur.execute(statement_check_domain, (domain,)) == 0:
-            print(domain + " added to database")
-            #aggiungi e punta
-            statement_add_domain = "INSERT INTO domaintable (domain, number) VALUES (?, ?)"
-            self.cur.execute(statement_add_domain, (domain, self.id_of_username))
-            self.connection.commit()
-        else:
-            #punta e basta
-            statement_add_domain = "INSERT INTO domaintable (domain, number) VALUES (?, ?)"
-            self.cur.execute(statement_add_domain, (domain, self.id_of_username))
-            self.connection.commit()
-            print("found "+ domain +" +++++++ adding pointer")
-
-
-        
-
-        [Finished in 37.1s]
-        [Finished in 31.2s] without this part
-
-        
-        row = self.cur.execute(get_id_username)
-
-        if row is not None:
-            id_of_username = row
-            print("okaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaay")
-            print(id_of_username)
-        else:
-            print("+++++++++++++++++++++++++ why +++++++++++++++++++++++++")
-            # https://stackoverflow.com/questions/27718385/typeerror-nonetype-object-is-not-subscriptable
-        """
-
-
-
-
-        
+        self.username_cache = []
+        self.domain_name = []
