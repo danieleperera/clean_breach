@@ -19,6 +19,15 @@ BD cleaner is build as a internship project in order to create a clean database 
   - improve the part of frontend that interfaces with the database
   - test the code on other platforms
   
+![unknown](https://user-images.githubusercontent.com/45230107/55747571-d20b3c00-5a3c-11e9-9180-582025d3e7ff.png)
+```
+Text Files size 753 MB transformed to SQLite3 Database size 574,364 MB
+
+2 tables one for domain one for usernames
+Measure-Command { pipenv run start -s 200000000 }
+TotalMinutes      : 5,38570450333333
+```
+  
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
