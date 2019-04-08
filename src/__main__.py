@@ -37,6 +37,24 @@ TotalMinutes      : 388,907706818333
 TotalSeconds      : 23334,4624091
 TotalMilliseconds : 23334462,4091
 
+
+
+Measure-Command { pipenv run start -s 200000000 }
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 5-8: character maps to <undefined>
+
+
+
+Days              : 0
+Hours             : 0
+Minutes           : 12
+Seconds           : 26
+Milliseconds      : 948
+Ticks             : 7469483538
+TotalDays         : 0,00864523557638889
+TotalHours        : 0,207485653833333
+TotalMinutes      : 12,44913923
+TotalSeconds      : 746,9483538
+TotalMilliseconds : 746948,3538
 '''
 
 
