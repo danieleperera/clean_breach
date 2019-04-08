@@ -89,5 +89,3 @@ for fp in firstprogressbar:
     firstprogressbar.write(clear_border + excl+"%s saved to database" % str(os.path.basename(fp)))
     firstprogressbar.write(border)
     firstprogressbar.update()
-    
-    
